@@ -21,7 +21,7 @@ namespace DAO.DAO
         {
             try
             {
-                return _context.Users.Include(x => x.Positions.NameOfPosition).ToList();
+                return _context.Users.Include(x => x.Positions).Include(y => y.Roles).ToList();
             }
             catch (Exception ex)
             {
@@ -32,7 +32,7 @@ namespace DAO.DAO
         }
         public User CheckLogin(string username, string password)
         {
-            return _context.Users.Where(u => (u.UserName!.Equals(username) || u.EmailAddress!.Equals(username)) && u.Password!.Equals(password)).FirstOrDefault();
+            return _context.Users.Where(u => (u.UserName!.Equals(username) || u.EmailAddress!.Equals(username)) && u.Password!.Equals(password)).Include(x => x.Roles).FirstOrDefault();
         }
         public void AddNewUser(User user)
         {
@@ -40,7 +40,50 @@ namespace DAO.DAO
             {
                 _context.Add(user);
                 _context.SaveChanges();
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public void UpdateUser(User user)
+        {
+            try
+            {
+                var a = _context.Users!.SingleOrDefault(c => c.UserID == user.UserID);
+
+                _context.Entry(a).CurrentValues.SetValues(user);
+                _context.SaveChanges();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public void DeleteUser(Guid id)
+        {
+            try
+            {
+                var data = _context.Users.Where(x => x.UserID == id);
+                _context.Remove(data);
+                _context.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
+            
+        }
+        public User GetUserById(Guid id)
+        {
+            try
+            {
+                var data = _context.Users.SingleOrDefault(c => c.UserID == id);
+                return data;
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

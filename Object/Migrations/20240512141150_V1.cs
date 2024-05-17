@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BusinessObject.Migrations
 {
     /// <inheritdoc />
-    public partial class v1 : Migration
+    public partial class V1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -118,7 +118,7 @@ namespace BusinessObject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Form",
+                name: "Forms",
                 columns: table => new
                 {
                     FormID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -131,14 +131,14 @@ namespace BusinessObject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Form", x => x.FormID);
+                    table.PrimaryKey("PK_Forms", x => x.FormID);
                     table.ForeignKey(
-                        name: "FK_Form_FormType_TypeID",
+                        name: "FK_Forms_FormType_TypeID",
                         column: x => x.TypeID,
                         principalTable: "FormType",
                         principalColumn: "TypeID");
                     table.ForeignKey(
-                        name: "FK_Form_User_UsersID",
+                        name: "FK_Forms_User_UsersID",
                         column: x => x.UsersID,
                         principalTable: "User",
                         principalColumn: "UserID",
@@ -156,13 +156,13 @@ namespace BusinessObject.Migrations
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Form_TypeID",
-                table: "Form",
+                name: "IX_Forms_TypeID",
+                table: "Forms",
                 column: "TypeID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Form_UsersID",
-                table: "Form",
+                name: "IX_Forms_UsersID",
+                table: "Forms",
                 column: "UsersID");
 
             migrationBuilder.CreateIndex(
@@ -189,7 +189,7 @@ namespace BusinessObject.Migrations
                 name: "ClaimUser");
 
             migrationBuilder.DropTable(
-                name: "Form");
+                name: "Forms");
 
             migrationBuilder.DropTable(
                 name: "Claim");

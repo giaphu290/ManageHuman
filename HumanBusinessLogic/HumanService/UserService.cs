@@ -1,4 +1,5 @@
-﻿using Entity.Object;
+﻿using AutoMapper;
+using Entity.Object;
 using HumanRepository.IRepository;
 using HumanService.IHumanService;
 using System;
@@ -15,10 +16,11 @@ namespace HumanService.HumanService
         public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
+          
         }
         public List<User> GetUsers()
         {
-            return _userRepository.GetUsers();
+            return  _userRepository.GetUsers();
         }
 
         public void AddNewUser(User user)
@@ -30,6 +32,21 @@ namespace HumanService.HumanService
         {
             return _userRepository
                 .CheckLogin(username, password);
+        }
+
+        public void UpdateUser(User user)
+        {
+            _userRepository.UpdateUser(user);
+        }
+
+        public void DeleteUserById(Guid Id)
+        {
+            _userRepository.DeleteUserById(Id);
+        }
+
+        public User GetUserByID(Guid Id)
+        {
+            return _userRepository.GetUserByID(Id);
         }
     }
 }

@@ -22,9 +22,24 @@ namespace HumanRepository.Repository
             return _userDAO.CheckLogin(username, password);
         }
 
+        public void DeleteUserById(Guid Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User GetUserByID(Guid Id)
+        {
+            return _userDAO.GetUserById(Id);
+        }
+
         public List<User> GetUsers()
         {
             return _userDAO.GetUsers();
+        }
+
+        public void UpdateUser(User user)
+        {
+            _userDAO.UpdateUser(user);
         }
     }
 }

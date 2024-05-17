@@ -11,6 +11,6 @@ namespace Entity.Object
     {
         public Guid TypeID { get; set; }
         public string TypeName { get; set; }
-        public  List<Form>? Forms { get; set; }
+        public  List<Form> Forms { get; set; }
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObject.Migrations
 {
     [DbContext(typeof(HumanDbcontext))]
-    [Migration("20240511045656_v1")]
-    partial class v1
+    [Migration("20240512141150_V1")]
+    partial class V1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -100,7 +100,7 @@ namespace BusinessObject.Migrations
 
                     b.HasIndex("UsersID");
 
-                    b.ToTable("Form");
+                    b.ToTable("Forms");
                 });
 
             modelBuilder.Entity("Entity.Object.FormType", b =>

@@ -19,9 +19,10 @@ namespace Entity.Dbcontext
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Position> Positions { get; set; }
-        public DbSet<Claim> Claim { get; set; }
-        public DbSet<Form> Form { get; set; }
+        public DbSet<Claim> Claims { get; set; }
+        public DbSet<Form> Forms { get; set; }
         public DbSet<FormType> FormTypes { get; set; }
+        public DbSet<ClaimUser> ClaimUsers { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(GetConnectionString());

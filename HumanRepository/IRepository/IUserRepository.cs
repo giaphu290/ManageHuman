@@ -12,5 +12,8 @@ namespace HumanRepository.IRepository
         public List<User> GetUsers();
         public void AddNewUser(User user);
         public User CheckLogin(string username, string password);
+        public void UpdateUser(User user);
+        public void DeleteUserById(Guid Id);
+        public User GetUserByID(Guid Id);
     }
 }

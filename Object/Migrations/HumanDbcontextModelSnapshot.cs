@@ -97,7 +97,7 @@ namespace BusinessObject.Migrations
 
                     b.HasIndex("UsersID");
 
-                    b.ToTable("Form");
+                    b.ToTable("Forms");
                 });
 
             modelBuilder.Entity("Entity.Object.FormType", b =>
