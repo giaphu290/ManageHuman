@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessObject.DTO.CreateAndReponse
 {
-    public class PositionUpdateDTO
+    public class UserPositionCreateDTO
     {
-        public string? NameOfPosition { get; set; }
     }
 }

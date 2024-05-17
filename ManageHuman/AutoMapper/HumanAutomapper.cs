@@ -2,6 +2,7 @@
 using BusinessObject.DTO;
 using BusinessObject.DTO.CreateAndReponse;
 using BusinessObject.DTO.CreateDTO;
+using BusinessObject.Object;
 using Entity.Object;
 
 namespace ManageHuman.AutoMapper
@@ -12,7 +13,6 @@ namespace ManageHuman.AutoMapper
         {
             //User
             CreateMap<UserDTO, User>().ReverseMap()
-                .ForMember(x => x.NameOfPosition, opt => opt.MapFrom(src => src.Positions!.NameOfPosition))
                 .ForMember(x => x.role, opt => opt.MapFrom(src => src.Roles!.RoleName));
             CreateMap<User, UserCreateDTO>().ReverseMap()
                .ForMember(
@@ -50,6 +50,12 @@ namespace ManageHuman.AutoMapper
             CreateMap<ClaimUser, ClaimUserCreateDTO>().ReverseMap()
                 .ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<ClaimUpdateDTO, ClaimUser>().ReverseMap();
+            //Salary
+            CreateMap<UserPositionDTO, UserPosition>().ReverseMap()
+                .ForMember(x => x.username, opt => opt.MapFrom(src => src.User.Name))
+                .ForMember(x => x.position, opt => opt.MapFrom(src => src.Position.NameOfPosition));
+      
+
 
 
 

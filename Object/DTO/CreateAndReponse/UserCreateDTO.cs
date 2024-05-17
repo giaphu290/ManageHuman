@@ -24,8 +24,6 @@ namespace BusinessObject.DTO.CreateDTO
         [EmailAddress(ErrorMessage = "Invalid email address.")]
         public string EmailAddress { get; set; }
         [Required(ErrorMessage = "Position is required.")]
-        public Guid PositionID { get; set; }
-        [Required(ErrorMessage = "Role is required.")]
         public Guid RoleID { get; set; }
     }
 }

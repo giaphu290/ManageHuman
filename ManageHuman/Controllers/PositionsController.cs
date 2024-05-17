@@ -71,20 +71,7 @@ namespace ManageHuman.Controllers
                 if (_update.NameOfPosition != null)
                 {
                     data.NameOfPosition = _update.NameOfPosition;
-                }
-                if (_update.Salary != null)
-                {
-                    data.Salary = (float)_update.Salary;
-                }
-                if (_update.FromDate != null)
-                {
-                    data.FromDate = (DateTime)_update.FromDate;
-                }
-                if (_update.ToDate != null)
-                {
-                    data.ToDate = (DateTime)_update.ToDate;
-                }
-               
+                }               
 
                 _service.UpdatePosition(data);
 

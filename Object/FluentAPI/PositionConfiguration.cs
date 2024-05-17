@@ -15,11 +15,8 @@ namespace Entity.FluentAPI
         {
             builder.ToTable("Position");
             builder.HasKey(a => a.PositionID);
-            builder.Property(a => a.NameOfPosition).IsRequired();
-            builder.Property(a => a.Salary).IsRequired();
-            builder.Property(a => a.FromDate).IsRequired();
-            builder.Property(a => a.ToDate).IsRequired();
-            builder.HasMany(b => b.Users).WithOne(a => a.Positions).HasForeignKey(a => a.PositionID).OnDelete(DeleteBehavior.NoAction);
+            builder.Property(a => a.NameOfPosition).IsRequired();      
+            builder.HasMany(x => x.UserPositions).WithOne(b => b.Position).HasForeignKey(b => b.PositionID).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

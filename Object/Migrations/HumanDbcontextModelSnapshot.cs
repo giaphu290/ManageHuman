@@ -22,6 +22,40 @@ namespace BusinessObject.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("BusinessObject.Object.UserPosition", b =>
+                {
+                    b.Property<Guid>("UserPositionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Paid")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("PositionID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Salary")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("timeend")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset>("timestart")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("UserPositionId");
+
+                    b.HasIndex("PositionID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("UserPosition", (string)null);
+                });
+
             modelBuilder.Entity("Entity.Object.Claim", b =>
                 {
                     b.Property<Guid>("ClaimID")
@@ -121,18 +155,9 @@ namespace BusinessObject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("FromDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("NameOfPosition")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Salary")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("ToDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("PositionID");
 
@@ -175,9 +200,6 @@ namespace BusinessObject.Migrations
                     b.Property<long>("PhoneNumber")
                         .HasColumnType("bigint");
 
-                    b.Property<Guid>("PositionID")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("RoleID")
                         .HasColumnType("uniqueidentifier");
 
@@ -187,14 +209,31 @@ namespace BusinessObject.Migrations
 
                     b.HasKey("UserID");
 
-                    b.HasIndex("PositionID");
-
                     b.HasIndex("RoleID");
 
                     b.HasIndex("UserName")
                         .IsUnique();
 
                     b.ToTable("User", (string)null);
+                });
+
+            modelBuilder.Entity("BusinessObject.Object.UserPosition", b =>
+                {
+                    b.HasOne("Entity.Object.Position", "Position")
+                        .WithMany("UserPositions")
+                        .HasForeignKey("PositionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entity.Object.User", "User")
+                        .WithMany("UserPositions")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Position");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Entity.Object.ClaimUser", b =>
@@ -237,19 +276,11 @@ namespace BusinessObject.Migrations
 
             modelBuilder.Entity("Entity.Object.User", b =>
                 {
-                    b.HasOne("Entity.Object.Position", "Positions")
-                        .WithMany("Users")
-                        .HasForeignKey("PositionID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("Entity.Object.Role", "Roles")
                         .WithMany("Users")
                         .HasForeignKey("RoleID")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Positions");
 
                     b.Navigation("Roles");
                 });
@@ -266,7 +297,7 @@ namespace BusinessObject.Migrations
 
             modelBuilder.Entity("Entity.Object.Position", b =>
                 {
-                    b.Navigation("Users");
+                    b.Navigation("UserPositions");
                 });
 
             modelBuilder.Entity("Entity.Object.Role", b =>
@@ -279,6 +310,8 @@ namespace BusinessObject.Migrations
                     b.Navigation("ClaimUser");
 
                     b.Navigation("Forms");
+
+                    b.Navigation("UserPositions");
                 });
 #pragma warning restore 612, 618
         }

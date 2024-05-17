@@ -1,4 +1,5 @@
-﻿using Entity.Object;
+﻿using BusinessObject.Object;
+using Entity.Object;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,7 @@ namespace Entity.Dbcontext
         public DbSet<Form> Forms { get; set; }
         public DbSet<FormType> FormTypes { get; set; }
         public DbSet<ClaimUser> ClaimUsers { get; set; }
+        public DbSet<UserPosition> userPositions { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(GetConnectionString());

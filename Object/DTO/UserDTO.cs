@@ -15,8 +15,6 @@ namespace BusinessObject.DTO
         public long PhoneNumber { get; set; }
         public string EmailAddress { get; set; }
 
-        public string NameOfPosition { get; set; }
-
         public string role { get; set; }
 
 

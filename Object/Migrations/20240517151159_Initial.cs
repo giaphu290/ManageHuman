@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BusinessObject.Migrations
 {
     /// <inheritdoc />
-    public partial class V1 : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -41,10 +41,7 @@ namespace BusinessObject.Migrations
                 columns: table => new
                 {
                     PositionID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    NameOfPosition = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Salary = table.Column<double>(type: "float", nullable: false),
-                    FromDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ToDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    NameOfPosition = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -73,17 +70,11 @@ namespace BusinessObject.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<long>(type: "bigint", nullable: false),
                     EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PositionID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RoleID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.UserID);
-                    table.ForeignKey(
-                        name: "FK_User_Position_PositionID",
-                        column: x => x.PositionID,
-                        principalTable: "Position",
-                        principalColumn: "PositionID");
                     table.ForeignKey(
                         name: "FK_User_Roles_RoleID",
                         column: x => x.RoleID,
@@ -145,6 +136,35 @@ namespace BusinessObject.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "UserPosition",
+                columns: table => new
+                {
+                    UserPositionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Salary = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    timestart = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    timeend = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    Paid = table.Column<bool>(type: "bit", nullable: false),
+                    UserID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PositionID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserPosition", x => x.UserPositionId);
+                    table.ForeignKey(
+                        name: "FK_UserPosition_Position_PositionID",
+                        column: x => x.PositionID,
+                        principalTable: "Position",
+                        principalColumn: "PositionID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserPosition_User_UserID",
+                        column: x => x.UserID,
+                        principalTable: "User",
+                        principalColumn: "UserID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_ClaimUser_ClaimID",
                 table: "ClaimUser",
@@ -166,11 +186,6 @@ namespace BusinessObject.Migrations
                 column: "UsersID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_User_PositionID",
-                table: "User",
-                column: "PositionID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_User_RoleID",
                 table: "User",
                 column: "RoleID");
@@ -180,6 +195,16 @@ namespace BusinessObject.Migrations
                 table: "User",
                 column: "UserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserPosition_PositionID",
+                table: "UserPosition",
+                column: "PositionID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserPosition_UserID",
+                table: "UserPosition",
+                column: "UserID");
         }
 
         /// <inheritdoc />
@@ -192,16 +217,19 @@ namespace BusinessObject.Migrations
                 name: "Forms");
 
             migrationBuilder.DropTable(
+                name: "UserPosition");
+
+            migrationBuilder.DropTable(
                 name: "Claim");
 
             migrationBuilder.DropTable(
                 name: "FormType");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Position");
 
             migrationBuilder.DropTable(
-                name: "Position");
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "Roles");

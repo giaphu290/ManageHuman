@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BusinessObject.Object;
+using System.ComponentModel.DataAnnotations;
 
 namespace Entity.Object
 {
@@ -10,11 +11,11 @@ namespace Entity.Object
         public string Name { get; set; }
         public long PhoneNumber { get; set; }
         public string EmailAddress { get; set; }
-
-        public Guid PositionID { get; set; }
-        public virtual Position Positions { get; set; }
         public Guid RoleID { get; set; }
         public virtual Role Roles { get; set; }
+
+        public virtual List<UserPosition> UserPositions { get; set; }
+
         public virtual List<Form>? Forms { get; set; }
         public virtual List<ClaimUser> ClaimUser { get; set; }
 

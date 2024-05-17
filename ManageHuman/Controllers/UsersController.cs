@@ -86,10 +86,6 @@ namespace ManageHuman.Controllers
                 {
                     data.PhoneNumber = (long)_update.PhoneNumber;
                 }
-                if (_update.PositionID != null)
-                {
-                    data.PositionID = (Guid)_update.PositionID;
-                }
                 if (_update.RoleID != null)
                 {
                     data.RoleID = (Guid)_update.RoleID;

@@ -21,7 +21,7 @@ namespace DAO.DAO
         {
             try
             {
-                return _context.Users.Include(x => x.Positions).Include(y => y.Roles).ToList();
+                return _context.Users.Include(y => y.Roles).ToList();
             }
             catch (Exception ex)
             {

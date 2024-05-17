@@ -16,7 +16,6 @@ namespace BusinessObject.DTO.CreateAndReponse
         public long? PhoneNumber { get; set; }
         [EmailAddress(ErrorMessage = "Invalid email address.")]
         public string? EmailAddress { get; set; }
-        public Guid? PositionID { get; set; }
         public Guid? RoleID { get; set; }
 
     }

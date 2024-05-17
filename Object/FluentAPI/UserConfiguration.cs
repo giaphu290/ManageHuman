@@ -23,7 +23,7 @@ namespace Entity.FluentAPI
             builder.Property(x => x.EmailAddress).IsRequired();
             builder.HasMany(x => x.Forms).WithOne(f => f.Users).HasForeignKey(a => a.UsersID).OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(x => x.ClaimUser).WithOne(b => b.User).HasForeignKey(b => b.UserID).OnDelete(DeleteBehavior.Cascade);
-
+            builder.HasMany(x => x.UserPositions).WithOne(b => b.User).HasForeignKey(b => b.UserID).OnDelete(DeleteBehavior.Cascade);   
 
         }
     }
