@@ -22,7 +22,7 @@ namespace HumanRepository.Repository
             _dao.AddUserPosition(userPosition);
         }
 
-        public UserPosition GetSalaryByUser(Guid Id)
+        public List<UserPosition> GetSalaryByUser(Guid Id)
         {
             return _dao.GetSalaryByUser(Id);
         }
@@ -46,6 +46,11 @@ namespace HumanRepository.Repository
         public void UpdateUserPosition(UserPosition userPosition)
         {
             _dao.UpdateUserPosition(userPosition);
+        }
+
+        public bool UpdateTotalSalary(int id, Guid id2)
+        {
+           return _dao.UpdateTotalSalary(id,id2);
         }
     }
 }

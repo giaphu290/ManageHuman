@@ -14,5 +14,6 @@ namespace HumanService.IHumanService
         public void RemoveFormbyID(Guid Id);
         public void UpdateForm(Form form);
         public Form GetFormByID(Guid Id);
+        public List<Form> GetFormsByUserIdAndFormType(Guid userId, Guid formTypeId)
     }
 }

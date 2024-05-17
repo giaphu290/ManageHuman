@@ -28,6 +28,11 @@ namespace HumanService.HumanService
            return _formRepository.GetForms();
         }
 
+        public List<Form> GetFormsByUserIdAndFormType(Guid userId, Guid formTypeId)
+        {
+            return _formRepository.GetFormsByUserIdAndFormType(userId, formTypeId);
+        }
+
         public void RemoveFormbyID(Guid Id)
         {
             _formRepository.RemoveFormbyID(Id);

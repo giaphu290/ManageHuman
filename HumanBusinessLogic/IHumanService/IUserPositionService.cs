@@ -13,7 +13,9 @@ namespace HumanService.IHumanService
         public void AddUserPosition(UserPosition userPosition);
         public bool UpdateStatusSalary(UserPosition userPosition);
         public void UpdateUserPosition(UserPosition userPosition);
-        public UserPosition GetSalaryByUser(Guid Id);
+        public List<UserPosition> GetSalaryByUser(Guid Id);
         public UserPosition GetUserPositionById(Guid Id);
+        public bool UpdateTotalSalary(int id, Guid id2);
+            
     }
 }

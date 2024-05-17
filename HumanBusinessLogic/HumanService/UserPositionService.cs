@@ -22,7 +22,7 @@ namespace HumanService.HumanService
             _repo.AddUserPosition(userPosition);
         }
 
-        public UserPosition GetSalaryByUser(Guid Id)
+        public List<UserPosition> GetSalaryByUser(Guid Id)
         {
             return _repo.GetSalaryByUser(Id);
         }
@@ -42,6 +42,10 @@ namespace HumanService.HumanService
             return _repo.UpdateStatusSalary(userPosition);
         }
 
+        public bool UpdateTotalSalary(int id, Guid id)
+        {
+            return _repo.UpdateTotalSalary(id, id);
+        }
 
         public void UpdateUserPosition(UserPosition userPosition)
         {
