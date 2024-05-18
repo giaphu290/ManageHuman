@@ -25,7 +25,7 @@ namespace ManageHuman.Controllers
         }
        
         [HttpGet]
-        [Route("/api/[Controller]/GetFormType")]
+        [Route("/api/[Controller]/Manager/GetFormType")]
         public IActionResult GetFormTypes()
         {
             try
@@ -46,7 +46,7 @@ namespace ManageHuman.Controllers
 
         }
         [HttpPost]
-        [Route("/api/[Controller]/AddNewFormType")]
+        [Route("/api/[Controller]/Manager/AddNewFormType")]
         public IActionResult AddNewFormType([FromForm] FormTypeCreateDTO form)
         {
             try
@@ -62,7 +62,7 @@ namespace ManageHuman.Controllers
             }
         }
         [HttpPut]
-        [Route("/api/[Controller]/UpdateFormType")]
+        [Route("/api/[Controller]/Manager/UpdateFormType")]
         public IActionResult UpdateFormType([Required] Guid id, [FromForm] FormTypeUpdateDTO _update)
         {
 

@@ -54,7 +54,17 @@ namespace ManageHuman.AutoMapper
             CreateMap<UserPositionDTO, UserPosition>().ReverseMap()
                 .ForMember(x => x.username, opt => opt.MapFrom(src => src.User.Name))
                 .ForMember(x => x.position, opt => opt.MapFrom(src => src.Position.NameOfPosition));
-      
+            CreateMap<UserPosition, UserPositionCreateDTO>().ReverseMap()
+               .ForMember(x => x.UserPositionId, x => x.MapFrom(src => Guid.NewGuid()))
+                .ForMember(x => x.timestart, x => x.MapFrom(src => DateTimeOffset.Now))
+                .ForMember(x => x.timeend, x => x.MapFrom(src => DateTimeOffset.Now.AddDays(30)));
+            CreateMap<UserPositionUpdateDTO, UserPosition>().ReverseMap()
+                .ForMember(x => x.UserID, opt => opt.MapFrom(src => src.User.UserID))
+                .ForMember(x => x.PositionID, opt => opt.MapFrom(src => src.Position.PositionID));
+
+
+
+
 
 
 

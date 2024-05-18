@@ -15,5 +15,6 @@ namespace HumanService.IHumanService
         public void UpdateUser(User user);
         public void DeleteUserById(Guid Id);
         public User GetUserByID(Guid Id);
+        
     }
 }

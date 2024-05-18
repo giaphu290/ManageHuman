@@ -31,6 +31,11 @@ namespace HumanRepository.Repository
             return formDAO.GetForms();
         }
 
+        public List<Form> GetFormsByUser(Guid userId)
+        {
+            return formDAO.GetFormsByUser(userId);
+        }
+
         public List<Form> GetFormsByUserIdAndFormType(Guid userId, Guid formTypeId)
         {
            return formDAO.GetFormsByUserIdAndFormType(userId, formTypeId);

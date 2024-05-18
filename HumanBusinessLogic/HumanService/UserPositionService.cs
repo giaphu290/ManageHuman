@@ -42,9 +42,9 @@ namespace HumanService.HumanService
             return _repo.UpdateStatusSalary(userPosition);
         }
 
-        public bool UpdateTotalSalary(int id, Guid id)
+        public bool UpdateTotalSalary(int id, Guid id2)
         {
-            return _repo.UpdateTotalSalary(id, id);
+            return _repo.UpdateTotalSalary(id, id2);
         }
 
         public void UpdateUserPosition(UserPosition userPosition)

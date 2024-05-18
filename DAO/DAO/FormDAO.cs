@@ -86,7 +86,19 @@ namespace DAO.DAO
         {
             try
             {
-                return _context.Forms.Include(x => x.Users).Where(x => (x.UsersID == userId && x.TypeID == formTypeId)).ToList();
+                return _context.Forms.Include(x => x.Users).Include(x => x.FormType).Where(x => (x.UsersID == userId && x.TypeID == formTypeId)).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+        }
+        public List<Form> GetFormsByUser(Guid userId)
+        {
+            try
+            {
+                return _context.Forms.Include(x => x.Users).Include(x => x.FormType).Where(x => x.UsersID == userId ).ToList();
             }
             catch (Exception ex)
             {

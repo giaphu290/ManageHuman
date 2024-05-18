@@ -11,7 +11,9 @@ namespace ManageHuman
             var startup = new Startup(builder,builder.Environment);
             startup.ConfigureServices(builder.Services);
 
+  
             var app = builder.Build();
+
             startup.Configure(app, builder.Environment);
             app.Run();
         }

@@ -24,7 +24,7 @@ namespace ManageHuman.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        [Route("/api/[Controller]/GetPositions")]
+        [Route("/api/[Controller]/Admin/GetPositions")]
         public IActionResult GetPositions()
         {
             try
@@ -45,7 +45,7 @@ namespace ManageHuman.Controllers
 
         }
         [HttpPost]
-        [Route("/api/[Controller]/AddNewPosition")]
+        [Route("/api/[Controller]/Admin/AddNewPosition")]
         public IActionResult AddNewPosition([FromForm] PositionCreateDTO dTO)
         {
             try
@@ -61,7 +61,7 @@ namespace ManageHuman.Controllers
             }
         }
         [HttpPut]
-        [Route("/api/[Controller]/UpdatePosition")]
+        [Route("/api/[Controller]/Admin/UpdatePosition")]
         public IActionResult UpdatePosition([Required] Guid id, [FromForm] PositionUpdateDTO _update)
         {
 

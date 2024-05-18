@@ -35,7 +35,7 @@ namespace HumanDAO.DAO
             try
             {
 
-                return _context.userPositions.Where(c => c.UserID == id).ToList();
+                return _context.userPositions.Include(x => x.Position).Include(x => x.User).Where(c => c.UserID == id).ToList();
 
             }
             catch (Exception ex)
@@ -101,36 +101,43 @@ namespace HumanDAO.DAO
                 return true;
             }
         }
-        public bool UpdateTotalSalary(int n, Guid id)
+        public bool UpdateTotalSalary(double n, Guid userId)
         {
-            var userPositions = _context.userPositions.ToList();
-
-      
-            if (userPositions == null || !userPositions.Any())
+            try
             {
-                return false;
-            }
-            foreach (var userPosition in userPositions)
-            {
+                var userPositions = _context.userPositions
+                    .Where(up => up.UserID == userId && up.Paid ==false)
+                    .ToList();
 
-                if (userPosition.Paid == false)
+                if (userPositions == null)
                 {
+                    return false;
+                }
+
+                foreach (var userPosition in userPositions)
+                {
+                    double rate = 22 - n;
                     if (double.TryParse(userPosition.Salary, out double salary))
                     {
-                        double rateMoney = salary / 22;
-
-                        if (userPosition.UserID == id && userPosition.timestart < DateTimeOffset.Now && userPosition.timeend > DateTimeOffset.Now)
+                        double rateMoney = salary / rate;
+                        double newSalary = salary - n * rateMoney;
+                        if (newSalary < 0)
                         {
-                            double newSalary = salary - n * rateMoney;
-                            userPosition.Salary = newSalary.ToString();
+                            newSalary = 0;
                         }
-                        _context.Entry(userPosition).State = EntityState.Modified;
+                        userPosition.Salary = newSalary.ToString();
+                        _context.SaveChanges();
                     }
+
                 }
+                
+                return true;
             }
-            // Save the changes to the context
-            _context.SaveChanges();
-            return true;
+            catch (Exception ex)
+            {  
+                Console.WriteLine($"Error updating total salary: {ex.Message}");
+                return false;
+            }
         }
     }
 }

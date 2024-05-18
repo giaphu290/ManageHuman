@@ -1,4 +1,5 @@
-﻿using Entity.Object;
+﻿using DAO.DAO;
+using Entity.Object;
 using HumanRepository.IRepository;
 using HumanService.IHumanService;
 using System;
@@ -41,6 +42,10 @@ namespace HumanService.HumanService
         public void UpdateForm(Form form)
         {
             _formRepository.UpdateForm(form);
+        }
+        public List<Form> GetFormsByUser(Guid userId)
+        {
+            return _formRepository.GetFormsByUser(userId);
         }
     }
 }

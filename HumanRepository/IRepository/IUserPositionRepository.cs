@@ -16,5 +16,6 @@ namespace HumanRepository.IRepository
         public List<UserPosition> GetSalaryByUser(Guid Id);
         public UserPosition GetUserPositionById(Guid Id);
         public bool UpdateTotalSalary(int id, Guid id2);
+
     }
 }

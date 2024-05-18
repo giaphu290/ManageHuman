@@ -46,15 +46,15 @@ namespace ManageHuman.Controllers
             var data = _mapper.Map<UserDTO>(checkLogin);
             var claims = new List<Claim>
     {
-        new Claim(JwtRegisteredClaimNames.Sub, configuration["Jwt:Subject"]),
+        new Claim(JwtRegisteredClaimNames.Sub, configuration["Jwt:Subject"]!),
         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString()),
-         new Claim("UserID", checkLogin.UserID.ToString()),
+        new Claim("UserID", checkLogin.UserID.ToString()),
         new Claim(ClaimTypes.Name, data.Name),
         new Claim(ClaimTypes.Role, data.role) 
     };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!));
             var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(

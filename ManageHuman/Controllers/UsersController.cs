@@ -11,7 +11,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ManageHuman.Controllers
 {
-    [Authorize(Policy = "AdminOnly")]
+    [Authorize(Policy = "ManagerOnly")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -23,7 +23,7 @@ namespace ManageHuman.Controllers
             this.mapper = mapper;
         }
         [HttpGet]
-        [Route("/api/[Controller]/GetAllUser")]
+        [Route("/api/[Controller]/Manager/GetAllUser")]
         public IActionResult GetAllUser()
         {
             try
@@ -44,7 +44,7 @@ namespace ManageHuman.Controllers
 
         }
         [HttpPost]
-        [Route("/api/[Controller]/AddNewUser")]
+        [Route("/api/[Controller]/Manager/AddNewUser")]
         public IActionResult AddNewUser([FromForm] UserCreateDTO userDTO)
         {
             try {
@@ -59,7 +59,7 @@ namespace ManageHuman.Controllers
             }
         }
         [HttpPut]
-        [Route("/api/[Controller]/UpdateUser")]
+        [Route("/api/[Controller]/Manager/UpdateUser")]
         public IActionResult UpdateUser([Required]Guid id, [FromForm]UserUpdateDTO _update)
         {
 

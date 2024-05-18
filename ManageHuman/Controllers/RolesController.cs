@@ -23,7 +23,7 @@ namespace ManageHuman.Controllers
             this.mapper = mapper;
         }
         [HttpGet]
-        [Route("/api/[Controller]/GetRoles")]
+        [Route("/api/[Controller]/Admin/GetRoles")]
         public IActionResult GetRoles()
         {
             try
@@ -43,7 +43,7 @@ namespace ManageHuman.Controllers
             }
         }
         [HttpGet]
-        [Route("api/[Controller]/GetRoleById")]
+        [Route("api/[Controller]/Admin/GetRoleById")]
         public IActionResult GetRoleById(Guid id)
         {
             try
@@ -61,7 +61,7 @@ namespace ManageHuman.Controllers
             }
         }
         [HttpPut]
-        [Route("/api/[Controller]/UpdateRole")]
+        [Route("/api/[Controller]/Admin/UpdateRole")]
         public IActionResult UpdateRole([Required] Guid id, [FromForm] RoleUpdateDTO _update)
         {
 

@@ -16,6 +16,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ManageHuman
 {
@@ -91,6 +92,9 @@ namespace ManageHuman
                 options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
                 options.AddPolicy("ManagerOnly", policy => policy.RequireRole("Manager"));
                 options.AddPolicy("EmployeeOnly", policy => policy.RequireRole("Employee"));
+                options.DefaultPolicy = new AuthorizationPolicyBuilder()
+            .RequireAuthenticatedUser()
+            .Build();
             });
 
         }
@@ -138,7 +142,9 @@ namespace ManageHuman
         services.AddScoped<IFormTypeRepository, FormTypeRepository>();
         services.AddScoped<IFormTypeService, FormTypeService>();
         services.AddScoped<IPositionRepository, PositionRepository>();
-        services.AddScoped<IPositionService, PositionService>();
+        services.AddScoped<IPositionService, PositionService>();  
+        services.AddScoped<IUserPositionRepository, UserPositionRepository>();
+        services.AddScoped<IUserPositionService, UserPositionService>();
 
     }
 }

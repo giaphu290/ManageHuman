@@ -15,5 +15,6 @@ namespace HumanRepository.IRepository
         public void UpdateForm(Form form);
         public Form GetFormByID(Guid Id);
         public List<Form> GetFormsByUserIdAndFormType(Guid userId, Guid formTypeId);
+        public List<Form> GetFormsByUser(Guid userId);
     }
 }

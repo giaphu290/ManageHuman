@@ -27,8 +27,9 @@ namespace ManageHuman.Controllers
             _mapper = mapper;
             _webHostEnvironment = webHostEnvironment;
         }
+        [Authorize]
         [HttpGet]
-        [Route("/api/[Controller]/GetForms")]
+        [Route("/api/[Controller]/Manager/GetForms")]
         public IActionResult GetForms()
         {
             try
@@ -49,7 +50,33 @@ namespace ManageHuman.Controllers
             }
 
         }
-        [Authorize(Policy = "EmployeeOnly")]
+        [Authorize]
+        [HttpGet]
+        [Route("/api/[Controller]/GetForms")]
+        public IActionResult GetFormByUser()
+        {
+            try
+            {
+                var user = HttpContext.User;
+                var username = user.FindFirst("UserID")?.Value;
+                var UsersID = Guid.Parse(username);
+
+                if (_service.GetFormsByUser(UsersID) == null)
+                {
+                    return NotFound("No User");
+                }
+                var data = _service.GetFormsByUser(UsersID);
+                var response = _mapper.Map<List<FormDTO>>(data);
+                return Ok(response);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+        [Authorize]
         [HttpPost]
         [Route("/api/[Controller]/AddNewForm")]
         public IActionResult AddNewForm([FromForm] FormCreateDTO form)
@@ -87,7 +114,7 @@ namespace ManageHuman.Controllers
         }
         [Authorize(Policy = "ManagerOnly")]
         [HttpPut]
-        [Route("/api/[Controller]/UpdateForm")]
+        [Route("/api/[Controller]/Manager/UpdateForm")]
         public  IActionResult UpdateForm([Required] Guid id, [FromForm] FormUpdateDTO _update)
         {
             try
@@ -106,6 +133,10 @@ namespace ManageHuman.Controllers
                 }if (_update.Description != null)
                 {
                     data.Description = _update.Description;
+                }
+                if (_update.DateCreate != null)
+                {
+                    data.DateCreate =(DateTime)_update.DateCreate;
                 }
                 if (_update.Attachments != null && _update.Attachments.Length > 0)
                 {
@@ -133,6 +164,24 @@ namespace ManageHuman.Controllers
                 return BadRequest(ex.Message);
             }
 
+        }
+        [Authorize]
+        [HttpDelete]
+        [Route("/api/[Controller]/Manager/DeleteForms")]
+        public IActionResult DeleteFormById(Guid id)
+        {
+            try
+            {
+                if (_service.GetFormByID(id) == null)
+                {
+                    return NotFound();
+                }
+                _service.RemoveFormbyID(id);
+                return Ok("Delete Successfully");
+            }catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
